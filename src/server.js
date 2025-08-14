@@ -20,11 +20,13 @@ const START_SERVER = () => {
   app.use(errorHandlingMiddleware)
   // moi truong production se dung PORT tu bien moi truong
   if (env.BUILD_MODE === 'production') {
-    app.listen(process.env.PORT, () => {
-      console.log(`3. Production Hello ${env.AUTHOR}, Back End Server is running successfully at Port: ${process.env.PORT}`)
+    const PORT = process.env.PORT || 3000
+    const HOST = '0.0.0.0' // Bắt buộc với Render
+
+    app.listen(PORT, HOST, () => {
+      console.log(`3. Production Hello ${env.AUTHOR}, Back End Server is running successfully at Host: ${HOST} and Port: ${PORT}`)
     })
   } else {
-    // moi truong development
     app.listen(env.LOCAL_DEV_APP_PORT, env.LOCAL_DEV_APP_HOST, () => {
       console.log(`3.Local Dev Hello ${env.AUTHOR}, Back End Server is running successfully at host: ${env.LOCAL_DEV_APP_HOST} and Port: ${env.LOCAL_DEV_APP_PORT}`)
     })
