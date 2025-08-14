@@ -1,6 +1,8 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { boardRoute } from '~/routes/v1/boardRoute'
+import { columnRoute } from '~/routes/v1/columnRoute'
+import { cardRoute } from '~/routes/v1/cardRoute'
 
 const Router = express.Router()
 
@@ -11,5 +13,10 @@ Router.get('/status', (req, res) => {
 
 //Board APIs cac api lien quan den board duoc tach rieng ra boardRoutes.js
 Router.use('/boards', boardRoute)
+//Column APIs cac api lien quan den board duoc tach rieng ra boardRoutes.js
+Router.use('/columns', columnRoute)
+//Card APIs cac api lien quan den board duoc tach rieng ra boardRoutes.js
+Router.use('/cards', cardRoute)
+
 
 export const APIs_V1 = Router
