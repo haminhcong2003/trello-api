@@ -18,9 +18,17 @@ const START_SERVER = () => {
 
   //middleware xu ly loi tap trung
   app.use(errorHandlingMiddleware)
-  app.listen(env.APP_PORT, env.APP_HOST, () => {
-    console.log(`3.Hello ${env.AUTHOR}, Back End Server is running successfully at host: ${env.APP_HOST} and Port: ${env.APP_PORT}`)
-  })
+  // moi truong production se dung PORT tu bien moi truong
+  if (env.BUILD_MODE === 'production') {
+    app.listen(process.env.PORT, () => {
+      console.log(`3. Production Hello ${env.AUTHOR}, Back End Server is running successfully at Port: ${process.env.PORT}`)
+    })
+  } else {
+    // moi truong development
+    app.listen(env.LOCAL_DEV_APP_PORT, env.LOCAL_DEV_APP_HOST, () => {
+      console.log(`3.Local Dev Hello ${env.AUTHOR}, Back End Server is running successfully at host: ${env.LOCAL_DEV_APP_HOST} and Port: ${env.LOCAL_DEV_APP_PORT}`)
+    })
+  }
   //thuc hien cac tac vu cleanup truoc khi dung server
   exitHook(() => {
     console.log('4. Disconnecting from MongoDB Cloud Atlas...')
